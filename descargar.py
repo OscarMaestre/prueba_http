@@ -3,7 +3,9 @@
 
 from utilidades.ficheros.GestorFicheros import GestorFicheros
 import constantes
-import bs4
+import bs4, glob, os
+from mako.template import Template
+
 gf=GestorFicheros()
 
 for i in range(0, 14):
@@ -26,3 +28,13 @@ for i in range(0, 14):
         if not gf.existe_fichero ( COMIC_DESCARGA ):
             gf.descargar_fichero ( URL_COMIC, COMIC_DESCARGA )
         contador_comics=contador_comics + 1
+        
+ficheros_comic=glob.glob( constantes.CARPETA_COMICS + os.sep + "*.html")
+for f in ficheros_comic:
+    sopa = bs4.BeautifulSoup ( open (f, "r") , "html5lib")
+    panel=sopa.find_all("div", "panel")
+    for p in panel:
+        imagenes=p.find_all("img")
+        for i in imagenes:
+            if i["src"].find("thumbna")==-1:
+                print (i["src"])

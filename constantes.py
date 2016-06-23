@@ -4,6 +4,7 @@ import os
 
 CARPETA_HTML="descargas"
 CARPETA_COMICS="comics"
+RESULTADO="resultado"
 URL="http://theoatmeal.com"
 URL_BASE=URL+"/comics_pg/page:{0}"
 
